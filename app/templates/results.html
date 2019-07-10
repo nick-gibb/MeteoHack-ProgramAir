@@ -1,0 +1,113 @@
+{% extends "base.html" %} {% block app_content %}
+
+<h3>
+  Annual energy cost for a {{ brand }} {{ model }} air conditioner in {{ city }}, {{ province }}
+</h3>
+
+
+{% for year, op_costs in yearly_op_cost.items() %}
+
+  <h3 class="text-center">Year {{year}}</h3>
+
+  {% for climate_model, cost in op_costs.items() %}
+  {% if year < 2019 %}
+  {% if climate_model == 'RCP2.6' %}
+  <h4 class="text-center">${{ cost }}</h4>
+  {% endif %}
+
+  {% elif year == 2019 %}
+  {% if climate_model == 'RCP4.5' %}
+  <h4 class="text-center">${{ cost }}</h4>
+  {% endif %}
+  {% else %}
+  {% if climate_model == 'RCP2.6' %}
+    <h4 class="text-center">With large reductions in carbon emissions: ${{ cost }}</h4>
+  {% endif %}
+  {% if climate_model == 'RCP4.5' %}
+    <h4 class="text-center">With moderate reductions in carbon emissions: ${{ cost }}</h4>
+  {% endif %}
+  {% if climate_model == 'RCP8.5' %}
+    <h4 class="text-center">With an increase in carbon emissions: ${{ cost }}</h4>
+  {% endif %}
+  {% endif %}
+    <!--<h5 class="text-center">{{ climate_model }} ${{ cost }}</h5>-->
+  {% endfor %}
+{% endfor %}
+
+<hr style="border: 0.5px solid black;" />
+
+<div class="row-2">
+  <div class="col">
+    <h4>
+      Parameters used in the calculation
+    </h4>
+    <ul>
+      <li>{{ province }} energy price: ${{ energy_rate }}/kWh</li>
+      <li>Energy efficiency ratio: {{ EE_RATIO }}</li>
+      <li>Capacity of the air conditioner: {{ COOL_CAP_BTU }} Btu/h</li>
+      <li>
+        Cooling needs
+        {% for year, scenario_cooling_days in yearly_cdd.items() %}
+<ul>
+{% if year<2019%}
+{% for scenario, cooling_days in scenario_cooling_days.items() %}
+  {% if scenario == 'RCP2.6' %}
+<li>{{ year }}: {{ cooling_days|round(1) }} days </li>
+  {% endif %}
+{% endfor %}
+{% endif %}
+
+
+
+{% if year==2019%}
+{% for scenario, cooling_days in scenario_cooling_days.items() %}
+  {% if scenario == 'RCP4.5' %}
+<li>{{ year }}: {{ cooling_days|round(1) }} days </li>
+  {% endif %}
+{% endfor %}
+{% endif %}
+
+
+{% if year>2019%}
+{% for scenario, cooling_days in scenario_cooling_days.items() %}
+
+
+  {% if scenario == 'RCP2.6' %}
+<li>{{ year }}, emissions greatly reduced: {{ cooling_days|round(1) }} days </li>
+  {% endif %}
+
+    {% if scenario == 'RCP4.5' %}
+<li>{{ year }}, emissions moderately reduced: {{ cooling_days|round(1) }} days </li>
+  {% endif %}
+
+    {% if scenario == 'RCP8.5' %}
+<li>{{ year }}, emissions increased: {{ cooling_days|round(1) }} days </li>
+  {% endif %}
+
+{% endfor %}
+{% endif %}
+</ul>
+{% endfor %}
+      </li>
+      <li>
+        Summer outdoor design temperature for {{ city }}, {{ province }}:
+        {{ design_temp }} °C (from {{ name_nearest_station }}, located
+        ~{{ nearest_station_distance }} km away)
+      </li>
+      <li>
+          <a href="https://en.wikipedia.org/wiki/Representative_Concentration_Pathway">Representative Concentration Pathway (RCP) trajectories</a> (2.6, 4.5, and 8.5) were provided by the IPCC (2014).
+      </li>
+    </ul>
+    <a href="{{ url_for('login') }}"
+      ><button class="btn btn-primary">Back</button></a
+    >
+
+        <a href="{{ url_for('about') }}"
+      ><button class="btn btn-info">How the Calculator Works</button></a
+    >
+  </div>
+</div>
+
+
+
+{% endblock %}

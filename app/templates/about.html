@@ -1,0 +1,97 @@
+{% extends "base.html" %} {% block app_content %}
+<h3>
+  About
+</h3>
+
+<p>
+    Household use of air conditioners (ACs) is growing steadily in Canada (<a href="https://open.canada.ca/data/en/dataset/140a772d-5de5-4947-bfbf-cf6423d53be6">source</a>).
+    In Canada, air conditioners contribute the most to summer energy demaind out of all household appliances.
+    This is because they generally have a low energy efficiency. By using our calculator, you can choose
+    a more efficient AC. Or you can skip the AC and open some windows. These actions will reduce
+    energy demand and your carbon footprint. You will also save money on your
+    electricity bills. To quantify exactly much money you could save, use our cost calculator.
+</p>
+
+<img src="static/ML16_44_51.png" class="img-responsive" alt="AC Use">
+<div class="row-2">
+  <div class="col">
+
+      <h4>How the calculator works</h4>
+<p>The calculator collects data from several sources to create a personalized cost estimate.
+The following formula is used to calculate the cost:</p>
+<p>
+Cost of operation = (24 x DDc·18 / TOD - 18) x (CAP (35°C) / 0.9 EER) x (Cost/kW/1000)</p>
+where
+<ul>
+    <li>
+        DDc·18 is number of cooling degree-days (base 18°C), i.e. the number of days when the temperature exceeds 18 °C;
+    </li>
+    <li>
+        TOD is the summer outdoor design temperature (°C) for the user-provided location;
+    </li>
+    <li>
+        CAP (35°C) is the capacity of the AC (in Btu/h) at an entering air temperature of 35°C;
+    </li>
+    <li>
+        EER is the rated energy efficiency ratio; and,
+    </li>
+    <li>
+        Cost per kWh is the local electricity cost (in $/kWh).
+    </li>
+</ul>
+
+<p>For more information on this equation and ways to air condition your home efficiently
+visit <a href="https://www.nrcan.gc.ca/energy/publications/efficiency/residential/air-conditioning/6051">NRCan’s air conditioner information page</a>.
+
+</p>
+
+<h4>Data sources</h4>
+<p>
+<a href="https://open.canada.ca/data/en/dataset/140a772d-5de5-4947-bfbf-cf6423d53be6">
+    Percentage of households that use air conditioners (StatsCan)</a></p>
+<p>
+
+<a href="https://open.canada.ca/data/en/dataset/fbfdf946-8dd1-4830-a5c9-f8a72d8fabda">
+    Energy consumption of home appliances, and air conditioners available in Canada (Natural Resources Canada)
+</a>
+
+</p>
+<p>
+
+
+<a href="https://www.nrcan.gc.ca/energy/publications/efficiency/residential/air-conditioning/6051">
+Air conditioning your home: air conditioning operating costs (Natural Resources Canada)
+</a>
+</p>
+<p>
+
+
+<a href="https://open.canada.ca/data/en/dataset/0a896af8-f2be-4cf5-a745-2e1792db04a1">
+    Statistically downscaled climate indices, cooling degree days (Environment and Climate Change Canada)
+
+</a>
+</p>
+<p>
+<a href="https://higherlogicdownload.s3.amazonaws.com/ACCA/c6b38bda-2e04-4f93-bd51-7a80525ad936/UploadedImages/Outdoor-Design-Conditions-1.pdf">
+    Summer Outdoor Design Temperatures (Air Conditioning Contractors of America)</a>
+</p>
+
+<h4>Contact</h4>
+
+<p>
+    This app was created by Nick, Patrick, and Tirth for the 2019 Meteohack. Contact us at
+    <a href="mailto:gibbnick@gmail.com">
+        gibbnick@gmail.com
+    </a>
+</p>
+<div style="padding-bottom:20px;">
+<a href="{{ url_for('login') }}">
+    <button class="btn btn-info">
+        Back the calculator
+    </button>
+</a>
+</div>
+  </div>
+</div>
+
+{% endblock %}
