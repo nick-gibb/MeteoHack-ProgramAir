@@ -2,7 +2,7 @@
 
 #### Team ProgramAir | Nicholas Gibb, Tirth Patel, Patrick Watt
 
-#### Website online at www.gibbnick.pythonanywhere.com
+#### Website online at http://gibbnick.pythonanywhere.com/
 
 ### Problem
 
